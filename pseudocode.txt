@@ -1,0 +1,52 @@
+*** Minesweeper with flood mechanic ***
+
+** Rules **
+- A board will be presented with hidden tiles
+- Try to click all the tiles that do not have any mines
+- if you click a mine, you lose
+- if you successfully click all the tiles without mines, you win
+
+
+
+** In-depth Mechanics **
+- Typically there will be 3 board sizes
+    - beginner: 8x8 (10 mines)
+    - intermediate: 16x16 (40 mines)
+    - expert: 30x16 or 16x30 (99 mines)
+
+- Tiles will either display one of 3 values:
+    - mine
+    - blank (meaning no mines are nearby)
+    - a number (displaying how many mines are close to the tile within 1 tiles distance)
+
+- Flood mechanic
+    - if the user clicks on an empty tile (with no mine or number value) it will reveal all tiles within 1 tile radius of it (continuing in all fronts until a number values is revealed)
+
+
+
+** JS Logic **
+- start button to render the board (size to be determined)
+    - display:grid with 1fr on both row and column
+        - this'll be a problem if chosen to do expert mode (30x16) because it's not a perfect square board, hence tiles will be lopsided if 1fr
+    - create element div for each tile using a for loop
+        - a for loop within a for loop to create an array of arrays (rows and columns)
+        - give each new div a id or its row and column (id="0-1")
+
+- run mine function first to populate the board with mines randomly 
+    - use a Math.random() to roll a random number (number of times based on mine quantity)
+    - use a condition to make sure it's not assigning a mine on a tile that already has one
+        - assign the mine tile with a dataset or class "mine"
+
+- assign each remaining tile a class and/or dataset to determine if the tile is a number/empty value
+    - set a condition: if tile is 1 square adjacent to a mine, display the number of mines
+        - if not, set it to '' value
+        - condition check eg: if board[r-1][c-1] and so forth and so forth 
+
+- implement a flag function
+    - look into right clicking and capturing the windowEventElement to add a flag on right click
+    - or toggle button that turns user on click tile to change the tile to a flag icon
+
+- flood mechanic
+    - use recursion to rerun the check mine function if there isn't any mines/number value on the tile clicked. This will in turn keep checking every adjacent tile until a number value is found and it'll stop
+
+- once all tiles are revealed show winner in title text
