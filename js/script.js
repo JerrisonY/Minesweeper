@@ -7,23 +7,9 @@ const beginner = document.querySelector('#beginner');
 const intermediate = document.querySelector('#intermediate');
 const expert = document.querySelector('#expert');
 
-let gameBoard = [];
-let rows = 8;
-let columns = 8;
+init();
 
-let minesLocation = [];
-let totalMines = 10;
-
-let difficultyLevel = 'Beginner'
-
-mineCount.textContent = `Total Mines: ${totalMines}`;
-difficulty.textContent = `Difficulty: ${difficultyLevel}`;
-
-renderBoard()
-setMines()
-
-
-
+// ** event listeners **
 board.addEventListener('click', e => {
     if (!e.target.classList.contains('tile')) return;
 
@@ -45,6 +31,32 @@ board.addEventListener('click', e => {
     checkTile(r,c);
 })
 
+beginner.addEventListener('click', () => {
+    reset(8,8,10,'Beginner');
+});
+
+intermediate.addEventListener('click', () => {
+    reset(16,16,40,'Intermediate');
+});
+
+expert.addEventListener('click', () => {
+    reset(21,21,99,'Expert');
+})
+
+darkMode.addEventListener('click', () => {
+    let btn = document.querySelectorAll('.btn-container > button');
+    btn.forEach(button => {
+        button.classList.toggle('dark-mode');
+    })
+    mainContainer.classList.toggle('dark-mode')
+    if (darkMode.innerHTML === '<i class="fa-solid fa-moon"></i>Dark') {
+        darkMode.innerHTML = '<i class="fa-solid fa-sun" style="color: #ffffff;"></i><span style="color: #fff;"> Light</span>';
+    } else {
+        darkMode.innerHTML = '<i class="fa-solid fa-moon"></i>Dark'
+    }
+})
+
+// ** functions **
 function renderBoard() {
     board.style.setProperty('--rows', rows);
     board.style.setProperty('--columns', columns);
@@ -134,24 +146,6 @@ function reset(r,c,m,l) {
     setMines()
 }
 
-beginner.addEventListener('click', () => {
+function init() {
     reset(8,8,10,'Beginner');
-});
-
-intermediate.addEventListener('click', () => {
-    reset(16,16,40,'Intermediate');
-});
-
-expert.addEventListener('click', () => {
-    reset(21,21,99,'Expert');
-})
-
-darkMode.addEventListener('click', () => {
-    mainContainer.classList.toggle('dark-mode')
-    // mainContainer.classList.toggle('light-mode')
-    if (darkMode.innerHTML === '<i class="fa-solid fa-moon"></i>Dark') {
-        darkMode.innerHTML = '<i class="fa-solid fa-sun" style="color: #ffffff;"></i><span style="color: #fff;"> Light</span>';
-    } else {
-        darkMode.innerHTML = '<i class="fa-solid fa-moon"></i>Dark'
-    }
-})
+}
