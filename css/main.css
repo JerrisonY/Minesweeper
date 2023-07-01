@@ -27,8 +27,15 @@ body {
     font-size: 3em;
 }
 
+#difficulty {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}
+
 #minecount {
-    margin: 15px 0;
+    margin: 15px 0 25px 0;
+    font-size: 1.3em;
 }
 
 #board {
@@ -75,7 +82,7 @@ body {
 }
 
 .n6 {
-    color: cyan;
+    color: teal;
 }
 
 .n7 {
@@ -83,7 +90,7 @@ body {
 }
 
 .n8 {
-    color: lightslategray;
+    color: darkslategray;
 }
 
 /* Buttons */
@@ -98,18 +105,16 @@ body {
     border: solid 1px black;
 }
 
-.light-mode {
-    color: white;
-}
-
 .dark-mode {
     background-color: #1a1a1a;
+    color: white;
+
 }
 
 .mode-btn {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 30px;
+    right: 30px;
     padding: 5px;
     background: transparent;
     border: solid 1px black;

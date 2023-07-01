@@ -2,7 +2,10 @@ const mainContainer = document.getElementById('main-container');
 const darkMode = document.getElementById('dark-mode')
 const mineCount = document.querySelector('#minecount')
 const board = document.querySelector('#board');
-
+const difficulty = document.querySelector('#difficulty')
+const beginner = document.querySelector('#beginner');
+const intermediate = document.querySelector('#intermediate');
+const expert = document.querySelector('#expert');
 
 let gameBoard = [];
 let rows = 8;
@@ -11,12 +14,14 @@ let columns = 8;
 let minesLocation = [];
 let totalMines = 10;
 
+
 mineCount.textContent = `Total Mines: ${totalMines}`;
+difficulty.textContent = `Difficulty: Beginner`;
 
 renderBoard()
 setMines()
 
-const tile = document.querySelectorAll('#board > div');
+
 
 board.addEventListener('click', e => {
     if (!e.target.classList.contains('tile')) return;
@@ -24,22 +29,26 @@ board.addEventListener('click', e => {
     let currentId = e.target.id.split('-');
     let r = parseInt(currentId[0]);
     let c = parseInt(currentId[1]);
+
     if (minesLocation.includes(`${r}-${c}`)) {
-        // game over function
         for (let i = 0; i < minesLocation.length; i++) {
             let mineTile = document.getElementById(minesLocation[i])
-            mineTile.innerHTML = '<i class="fa-solid fa-bomb"></i>';
+            if (mainContainer.classList.contains('dark-mode')) {
+                mineTile.innerHTML = '<span style="color: black;"><i class="fa-solid fa-bomb"></i></span>';
+            } else {
+                mineTile.innerHTML = '<i class="fa-solid fa-bomb"></i>';
+            }
         }
         return;
     }
     checkTile(r,c);
 })
 
-
-
 function renderBoard() {
     board.style.setProperty('--rows', rows);
     board.style.setProperty('--columns', columns);
+
+    board.innerHTML = '';
 
     for (let r = 0; r < rows; r++) {
         let row = [];
@@ -70,12 +79,8 @@ function setMines() {
 }
 
 function checkTile(r,c) {
-    // if (gameBoard[r][c] === minesLocation)
-
     if (gameBoard[r][c].classList.contains('clicked')) return;
     gameBoard[r][c].classList.add('clicked');
-
-    
 
     let closeMines = 0;
 
@@ -107,7 +112,6 @@ function checkTile(r,c) {
     }
 }
 
-
 function checkMine(r,c) {
     if (minesLocation.includes(`${r}-${c}`)) {
         return 1;
@@ -116,10 +120,31 @@ function checkMine(r,c) {
     }
 }
 
+function reset(r,c,m) {
+    rows = r;
+    columns = c;
+    totalMines = m;
+    gameBoard = [];
+    minesLocation = [];
+    renderBoard()
+    setMines()
+}
+
+beginner.addEventListener('click', () => {
+    reset(8,8,10);
+});
+
+intermediate.addEventListener('click', () => {
+    reset(16,16,40);
+});
+
+expert.addEventListener('click', () => {
+    reset(21,21,99);
+})
 
 darkMode.addEventListener('click', () => {
     mainContainer.classList.toggle('dark-mode')
-    mainContainer.classList.toggle('light-mode')
+    // mainContainer.classList.toggle('light-mode')
     if (darkMode.innerHTML === '<i class="fa-solid fa-moon"></i>Dark') {
         darkMode.innerHTML = '<i class="fa-solid fa-sun" style="color: #ffffff;"></i><span style="color: #fff;"> Light</span>';
     } else {
