@@ -44,9 +44,14 @@ body {
 
 .tile {
     background-color: darkgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
+.clicked {
+    background-color: gray;
+}
 
 /* Buttons */
 .btn-container {

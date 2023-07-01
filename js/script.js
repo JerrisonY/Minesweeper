@@ -8,10 +8,31 @@ let gameBoard = [];
 let rows = 16;
 let columns = 16;
 
-let minesCount = 5;
+let totalMines = 5;
 let minesLocation = [];
 
+mineCount.textContent = `Total Mines: ${totalMines}`;
+
 renderBoard()
+setMines()
+
+const tile = document.querySelectorAll('#board > div');
+
+board.addEventListener('click', e => {
+    if (!e.target.classList.contains('tile')) return;
+
+    let currentTile = e.target;
+    currentTile.classList.add('clicked');
+    if (minesLocation.includes(currentTile.id)) {
+        // game over function
+        for (let i = 0; i < minesLocation.length; i++) {
+            let mineTile = document.getElementById(minesLocation[i])
+            mineTile.innerHTML = '<i class="fa-solid fa-bomb"></i>';
+        }
+    }
+})
+
+
 
 function renderBoard() {
     board.style.setProperty('--rows', rows);
@@ -31,7 +52,7 @@ function renderBoard() {
 }
 
 function setMines() {
-    let mineTracker = minesCount;
+    let mineTracker = totalMines;
     
     while (mineTracker > 0) {
         let row = Math.floor(Math.random() * rows);
@@ -45,7 +66,9 @@ function setMines() {
     }
 }
 
-setMines()
+// function checkMine(r,c) {
+//     if ()
+// }
 
 darkMode.addEventListener('click', () => {
     mainContainer.classList.toggle('dark-mode')
