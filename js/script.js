@@ -67,6 +67,11 @@ function renderBoard() {
         let row = [];
         for (let c = 0; c < columns; c++) {
             let tile = document.createElement('div');
+            if (difficultyLevel === 'Beginner') {
+                tile.style.fontSize = '2em';
+            } else if (difficultyLevel === 'Intermediate') {
+                tile.style.fontSize = '1.3em';
+            }
             tile.id = `${r}-${c}`;
             tile.classList.add('tile');
             board.appendChild(tile)
