@@ -14,9 +14,10 @@ let columns = 8;
 let minesLocation = [];
 let totalMines = 10;
 
+let difficultyLevel = 'Beginner'
 
 mineCount.textContent = `Total Mines: ${totalMines}`;
-difficulty.textContent = `Difficulty: Beginner`;
+difficulty.textContent = `Difficulty: ${difficultyLevel}`;
 
 renderBoard()
 setMines()
@@ -120,26 +121,29 @@ function checkMine(r,c) {
     }
 }
 
-function reset(r,c,m) {
+function reset(r,c,m,l) {
     rows = r;
     columns = c;
     totalMines = m;
     gameBoard = [];
     minesLocation = [];
+    difficultyLevel = l;
+    mineCount.textContent = `Total Mines: ${totalMines}`;
+    difficulty.textContent = `Difficulty: ${difficultyLevel}`;
     renderBoard()
     setMines()
 }
 
 beginner.addEventListener('click', () => {
-    reset(8,8,10);
+    reset(8,8,10,'Beginner');
 });
 
 intermediate.addEventListener('click', () => {
-    reset(16,16,40);
+    reset(16,16,40,'Intermediate');
 });
 
 expert.addEventListener('click', () => {
-    reset(21,21,99);
+    reset(21,21,99,'Expert');
 })
 
 darkMode.addEventListener('click', () => {
