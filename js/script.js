@@ -5,11 +5,11 @@ const board = document.querySelector('#board');
 
 
 let gameBoard = [];
-let rows = 15;
-let columns = 15;
+let rows = 24;
+let columns = 24;
 
 let minesLocation = [];
-let totalMines = 15;
+let totalMines = 100;
 
 mineCount.textContent = `Total Mines: ${totalMines}`;
 
@@ -21,7 +21,6 @@ const tile = document.querySelectorAll('#board > div');
 board.addEventListener('click', e => {
     if (!e.target.classList.contains('tile')) return;
 
-    e.target.classList.add('clicked');
     let currentId = e.target.id.split('-');
     let r = parseInt(currentId[0]);
     let c = parseInt(currentId[1]);
@@ -32,10 +31,7 @@ board.addEventListener('click', e => {
             mineTile.innerHTML = '<i class="fa-solid fa-bomb"></i>';
         }
     }
-
-    let tile = e.target;
-    tile.textContent = checkTile(r,c);
-    tile.classList.add(`n${tile.textContent}`);
+    checkTile(r,c);
 })
 
 
@@ -73,8 +69,13 @@ function setMines() {
 }
 
 function checkTile(r,c) {
-    let closeMines = 0;
 
+    if (gameBoard[r][c].classList.contains('clicked')) return;
+    gameBoard[r][c].classList.add('clicked');
+
+    
+
+    let closeMines = 0;
 
     closeMines += checkMine(r-1,c-1);
     closeMines += checkMine(r-1,c);
@@ -87,12 +88,26 @@ function checkTile(r,c) {
     closeMines += checkMine(r+1,c);
     closeMines += checkMine(r+1,c+1);
 
-    return closeMines;
+    if (closeMines > 0) {
+        gameBoard[r][c].textContent = closeMines;
+        gameBoard[r][c].classList.add(`n${closeMines}`);
+    } else {
+        checkTile(r-1, c-1);   
+        checkTile(r-1, c);      
+        checkTile(r-1, c+1);   
+
+        checkTile(r, c-1);     
+        checkTile(r, c+1);      
+        
+        checkTile(r+1, c-1);
+        checkTile(r+1, c);  
+        checkTile(r+1, c+1); 
+    }
 }
 
 
 function checkMine(r,c) {
-    if (String(minesLocation).includes(`${r}-${c}`)) {
+    if (minesLocation.includes(`${r}-${c}`)) {
         return 1;
     } else {
         return 0;
