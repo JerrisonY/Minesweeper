@@ -5,11 +5,11 @@ const board = document.querySelector('#board');
 
 
 let gameBoard = [];
-let rows = 24;
-let columns = 24;
+let rows = 8;
+let columns = 8;
 
 let minesLocation = [];
-let totalMines = 100;
+let totalMines = 10;
 
 mineCount.textContent = `Total Mines: ${totalMines}`;
 
@@ -30,6 +30,7 @@ board.addEventListener('click', e => {
             let mineTile = document.getElementById(minesLocation[i])
             mineTile.innerHTML = '<i class="fa-solid fa-bomb"></i>';
         }
+        return;
     }
     checkTile(r,c);
 })
@@ -69,6 +70,7 @@ function setMines() {
 }
 
 function checkTile(r,c) {
+    // if (gameBoard[r][c] === minesLocation)
 
     if (gameBoard[r][c].classList.contains('clicked')) return;
     gameBoard[r][c].classList.add('clicked');
