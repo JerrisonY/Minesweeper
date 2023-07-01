@@ -10,12 +10,25 @@ const expert = document.querySelector('#expert');
 init();
 
 // ** event listeners **
+window.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    console.log(e.target)
+    let currentId = e.target.id.split('-');
+    let r = parseInt(currentId[0]);
+    let c = parseInt(currentId[1]);
+    if (e.target.classList.contains('tile')) {
+        gameBoard[r][c].innerHTML = '<span style="color: darkred;"><i class="fa-solid fa-flag"></i></span>'
+    }
+})
+
 board.addEventListener('click', e => {
     if (!e.target.classList.contains('tile')) return;
 
     let currentId = e.target.id.split('-');
     let r = parseInt(currentId[0]);
     let c = parseInt(currentId[1]);
+
+    if (gameBoard[r][c].innerHTML === '<span style="color: darkred;"><i class="fa-solid fa-flag"></i></span>') return;
 
     if (minesLocation.includes(`${r}-${c}`)) {
         for (let i = 0; i < minesLocation.length; i++) {
