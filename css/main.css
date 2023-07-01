@@ -53,6 +53,39 @@ body {
     background-color: gray;
 }
 
+/* tile colors */
+.n1 {
+    color: blue;
+}
+
+.n2 {
+    color: green;
+}
+
+.n3 {
+    color: red;
+}
+
+.n4 {
+    color: darkblue;
+}
+
+.n5 {
+    color: darkred;
+}
+
+.n6 {
+    color: cyan;
+}
+
+.n7 {
+    color: black;
+}
+
+.n8 {
+    color: lightslategray;
+}
+
 /* Buttons */
 .btn-container {
     margin: 30px 0;
