@@ -9,13 +9,16 @@ const expert = document.querySelector('#expert');
 
 init();
 
+
 // ** event listeners **
 window.addEventListener('contextmenu', e => {
     e.preventDefault();
+
     let clicked = e.target;
     let currentId = e.target.id.split('-');
     let r = parseInt(currentId[0]);
     let c = parseInt(currentId[1]);
+
     if (clicked.classList.contains('tile') && !clicked.classList.contains('flagged')) {
         gameBoard[r][c].innerHTML = '<span style="color: darkred;"><i class="fa-solid fa-flag"></i></span>';
         clicked.classList.add('flagged');
@@ -27,7 +30,10 @@ window.addEventListener('contextmenu', e => {
 
 board.addEventListener('click', e => {
     if (!e.target.classList.contains('tile')) return;
-
+    if (Array.from(board.children).some(div => div.querySelector('i'))) {
+        return;
+      }
+      
     let currentId = e.target.id.split('-');
     let r = parseInt(currentId[0]);
     let c = parseInt(currentId[1]);
@@ -73,6 +79,7 @@ darkMode.addEventListener('click', () => {
     }
 })
 
+
 // ** functions **
 function renderBoard() {
     board.style.setProperty('--rows', rows);
@@ -115,6 +122,7 @@ function setMines() {
 
 function checkTile(r,c) {
     if (gameBoard[r][c].classList.contains('clicked')) return;
+    if (gameBoard[r][c].classList.contains('flagged')) return;
     gameBoard[r][c].classList.add('clicked');
 
     let closeMines = 0;
@@ -171,3 +179,8 @@ function reset(r,c,m,l) {
 function init() {
     reset(8,8,10,'Beginner');
 }
+
+// things to do:
+// improve ui
+// make so that if bomb is hit you cant click anymore
+// add winning function
