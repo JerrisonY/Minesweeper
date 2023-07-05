@@ -7,6 +7,7 @@ const beginner = document.querySelector('#beginner');
 const intermediate = document.querySelector('#intermediate');
 const expert = document.querySelector('#expert');
 
+
 init();
 
 
@@ -49,6 +50,7 @@ board.addEventListener('click', e => {
                 mineTile.innerHTML = '<i class="fa-solid fa-bomb"></i>';
             }
         }
+        setTimeout(gameOverReset,5000);
         return;
     }
     checkTile(r,c);
@@ -176,11 +178,17 @@ function reset(r,c,m,l) {
     setMines()
 }
 
+function gameOverReset() {
+    gameBoard = [];
+    minesLocation = [];
+    renderBoard()
+    setMines()
+}
+
 function init() {
     reset(8,8,10,'Beginner');
 }
 
 // things to do:
 // improve ui
-// make so that if bomb is hit you cant click anymore
 // add winning function
