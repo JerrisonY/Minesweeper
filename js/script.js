@@ -31,7 +31,7 @@ window.addEventListener('contextmenu', e => {
 
 board.addEventListener('click', e => {
     if (!e.target.classList.contains('tile')) return;
-    if (Array.from(board.children).some(div => div.querySelector('i'))) {
+    if (Array.from(board.children).some(div => div.querySelector('i.fa-bomb'))) {
         return;
       }
       
@@ -206,4 +206,4 @@ function init() {
 
 // things to do:
 // improve ui
-// add winning function
+// debug flagging issue clcik
