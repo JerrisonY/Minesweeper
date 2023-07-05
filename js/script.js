@@ -50,10 +50,11 @@ board.addEventListener('click', e => {
                 mineTile.innerHTML = '<i class="fa-solid fa-bomb"></i>';
             }
         }
-        setTimeout(gameOverReset,5000);
+        setTimeout(gameOverReset,3000);
         return;
     }
     checkTile(r,c);
+    checkWinner();
 })
 
 beginner.addEventListener('click', () => {
@@ -183,6 +184,20 @@ function gameOverReset() {
     minesLocation = [];
     renderBoard()
     setMines()
+}
+
+function checkWinner() {
+    let counter = 0;
+    for (let i = 0; i < rows * columns; i++) {
+        if (board.children[i].classList.contains('clicked')) counter++
+    }
+    if (counter === 54 || rows === 8) {
+        difficulty.textContent = 'Winner!'
+    } else if (counter === 216 || rows === 16) {
+        difficulty.textContent = 'Winner!'
+    } else if (counter === 477 || rows === 21) {
+        difficulty.textContent = 'Winner!'
+    }
 }
 
 function init() {
