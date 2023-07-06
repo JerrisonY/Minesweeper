@@ -31,9 +31,7 @@ window.addEventListener('contextmenu', e => {
 
 board.addEventListener('click', e => {
     if (!e.target.classList.contains('tile')) return;
-    if (Array.from(board.children).some(div => div.querySelector('i.fa-bomb'))) {
-        return;
-      }
+    if (Array.from(board.children).some(div => div.querySelector('i.fa-bomb'))) return;
       
     let currentId = e.target.id.split('-');
     let r = parseInt(currentId[0]);
@@ -145,16 +143,7 @@ function checkTile(r,c) {
         gameBoard[r][c].textContent = closeMines;
         gameBoard[r][c].classList.add(`n${closeMines}`);
     } else {
-        checkTile(r-1, c-1);   
-        checkTile(r-1, c);      
-        checkTile(r-1, c+1);   
-
-        checkTile(r, c-1);     
-        checkTile(r, c+1);      
-        
-        checkTile(r+1, c-1);
-        checkTile(r+1, c);  
-        checkTile(r+1, c+1); 
+        checkAdjacentTiles(r, c);
     }
 }
 
@@ -163,6 +152,16 @@ function checkMine(r,c) {
         return 1;
     } else {
         return 0;
+    }
+}
+
+function checkAdjacentTiles(r, c) {
+    for (let i = r - 1; i <= r + 1; i++) {
+        for (let j = c - 1; j <= c + 1; j++) {
+            if (i >= 0 && i < rows && j >= 0 && j < columns && !(i === r && j === c)) {
+                checkTile(i, j);
+            }
+        }
     }
 }
 
@@ -184,6 +183,7 @@ function gameOverReset() {
     minesLocation = [];
     renderBoard()
     setMines()
+    mineCount.textContent = `Total Mines: ${totalMines}`;
 }
 
 function checkWinner() {
@@ -191,12 +191,12 @@ function checkWinner() {
     for (let i = 0; i < rows * columns; i++) {
         if (board.children[i].classList.contains('clicked')) counter++
     }
-    if (counter === 54 || rows === 8) {
-        difficulty.textContent = 'Winner!'
-    } else if (counter === 216 || rows === 16) {
-        difficulty.textContent = 'Winner!'
-    } else if (counter === 477 || rows === 21) {
-        difficulty.textContent = 'Winner!'
+    if (counter === 54 && rows === 8) {
+        mineCount.textContent = 'Winner!'
+    } else if (counter === 216 && rows === 16) {
+        mineCount.textContent = 'Winner!'
+    } else if (counter === 477 && rows === 21) {
+        mineCount.textContent = 'Winner!'
     }
 }
 
