@@ -34,4 +34,6 @@ JavaScript
 
 - Add a custom grid option
 - Implement sound effects
-- Add animations for both game over and winner 
+- Add animations for both game over and winner
+- Add mobile functionality
+
