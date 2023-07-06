@@ -128,7 +128,6 @@ body {
 .dark-mode {
     background-color: #1a1a1a;
     color: white;
-
 }
 
 .mode-btn {
@@ -145,5 +144,4 @@ body {
 .mode-btn:hover {
     color: white;
     background-color: #1a1a1a;
-
 }
