@@ -20,7 +20,7 @@ window.addEventListener('contextmenu', e => {
     let r = parseInt(currentId[0]);
     let c = parseInt(currentId[1]);
 
-    if (clicked.classList.contains('tile') && !clicked.classList.contains('flagged')) {
+    if (clicked.classList.contains('tile') && !clicked.classList.contains('flagged') && !clicked.classList.contains('clicked')) {
         gameBoard[r][c].innerHTML = '<span style="color: darkred;"><i class="fa-solid fa-flag"></i></span>';
         clicked.classList.add('flagged');
     } else if (clicked.classList.contains('flagged')) {
